@@ -26,8 +26,6 @@ public class ChatDraw extends JFrame {
         this.setSize(1000, 950);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
-
         Font font = new Font("Verdana", Font.PLAIN, 16);
         JPanel panel = new JPanel();
         JPanel panelSouth = new JPanel();
@@ -35,21 +33,12 @@ public class ChatDraw extends JFrame {
         Border centralBorder = BorderFactory.createTitledBorder("Окно чата");
         Border eastBorder = BorderFactory.createTitledBorder("Пользователи");
 
-
-
-
-
-
-
         labelMain.setPreferredSize(new Dimension(630, 803));
         labelMain.setBorder(centralBorder);
         labelMain.setBackground(Color.white);
-        //   labelMain.setVerticalAlignment(JLabel.TOP);
         labelMain.setFont(font);
         labelMain.setOpaque(true);
         labelMain.setEditable(false);
-
-
 
         labelUsers.setVerticalAlignment(JLabel.TOP);
         labelUsers.setPreferredSize(new Dimension(220, 850));
@@ -57,8 +46,6 @@ public class ChatDraw extends JFrame {
         labelUsers.setBorder(eastBorder);
         labelUsers.setBackground(Color.GRAY);
         labelUsers.setFont(font);
-
-
 
         panelSouth.setBackground(Color.LIGHT_GRAY);
         panelSouth.setLayout(new FlowLayout());
@@ -77,7 +64,6 @@ public class ChatDraw extends JFrame {
         panel.add(labelUsers);
 
         this.getContentPane().add(panel);
-
         button.addActionListener(event -> getMessageIntoChat());
 
         fieldMessage.addKeyListener(new KeyAdapter() {
@@ -88,9 +74,6 @@ public class ChatDraw extends JFrame {
                 }
             }
         });
-
-
-
     }
 
     public void getMessageIntoChat() {
