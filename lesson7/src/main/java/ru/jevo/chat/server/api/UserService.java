@@ -3,6 +3,8 @@ package ru.jevo.chat.server.api;
 import org.jetbrains.annotations.Nullable;
 import ru.jevo.chat.model.User;
 
+import java.util.Map;
+
 public interface UserService {
 
     @Nullable

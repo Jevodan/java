@@ -6,7 +6,7 @@ import ru.jevo.chat.api.ChatSide;
 
     public void run(){
        // name = (args.length == 0) ? "unknown" : args[0];
-        ChatDraw draw = new ChatDraw();
-        draw.setVisible(true);
+      //  ChatDraw draw = new ChatDraw();
+    //    draw.setVisible(true);
     }
 }

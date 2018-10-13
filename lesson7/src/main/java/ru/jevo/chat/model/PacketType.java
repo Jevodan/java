@@ -8,6 +8,8 @@ public enum PacketType {
     LOGOUT,
     LOGIN,
     MESSAGE,
-    BROADCAST
+    BROADCAST,
+    PRIVAT,
+    ERROR
 
 }

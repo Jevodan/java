@@ -1,8 +1,7 @@
 package ru.jevo.chat.server.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
-import ru.jevo.chat.model.PacketPing;
+import ru.jevo.chat.model.PacketType;
 import ru.jevo.chat.server.api.ConnectionService;
 import ru.jevo.chat.server.event.ServerPingEvent;
 import ru.jevo.chat.server.service.Connection;
@@ -16,11 +15,12 @@ public class ServerPingHandler {
     private ConnectionService connectionService;
 
     public void handler(@ObservesAsync ServerPingEvent event){
+
         System.out.println("PINGHandler");
         final Connection connection = connectionService.get(event.getSocket());
         if (connection == null) return;
         System.out.println("Пингуется коннект айди: " + connection.getId());
-        connectionService.sendResult(event.getSocket(), true);
-
+        @NotNull final String message = event.getMessageJSON();
+        connectionService.sendResult(event.getSocket(), true, message);
     }
 }

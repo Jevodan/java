@@ -10,4 +10,6 @@ public class PacketBroadcast extends Packet {
     public PacketBroadcast() {super.setType(PacketType.BROADCAST); }
 
     private String message = "";
+
+    private String login = "";
 }

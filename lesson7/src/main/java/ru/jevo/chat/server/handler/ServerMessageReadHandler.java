@@ -27,17 +27,15 @@ public class ServerMessageReadHandler {
 
     public void handler(@ObservesAsync final ServerMessageReadEvent event) {
         System.out.println("ServerMessageReadhandler");
-
         try {
             @NotNull final InputStream inputStream = event.getSocket().getInputStream();
             @NotNull final DataInputStream in = new DataInputStream(inputStream);
             @NotNull final String messageJSON = in.readUTF();
-            System.out.println(connectionService.connections());
+            System.out.println("Прием" + messageJSON);
             serverMessageReadEvent.fireAsync(new ServerMessageReadEvent(event.getSocket()));
             serverMessageInputEvent.fireAsync(new ServerMessageInputEvent(event.getSocket(), messageJSON));
         } catch(@NotNull final Exception e) {
             System.out.println("вылет");
-            e.printStackTrace();
             connectionService.remove(event.getSocket());
         }
     }

@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import ru.jevo.chat.client.api.Client;
+import ru.jevo.chat.client.chatdraw.ChatDraw;
+import ru.jevo.chat.client.event.ClientChatInputEvent;
 import ru.jevo.chat.client.event.ClientMessageInputEvent;
 import ru.jevo.chat.client.event.ClientMessageReadEvent;
 import ru.jevo.chat.config.ChatConfig;
@@ -21,10 +23,16 @@ import java.net.Socket;
 public class ClientService implements Client {
 
     @Inject
+    ChatDraw draw;
+
+    @Inject
     private Event<ClientMessageReadEvent> clientMessageReadEvent;
 
     @Inject
     private Event<ClientMessageInputEvent> clientMessageInputEvent;
+
+    @Inject
+    private Event<ClientChatInputEvent> clientChatDrawEvent;
 
     @Inject
     private ChatConfig config;
@@ -37,6 +45,7 @@ public class ClientService implements Client {
 
     /**
      * Пишем в сокет, исходящий поток, на сервер
+     *
      * @param message
      */
     @Override
@@ -53,8 +62,10 @@ public class ClientService implements Client {
         socket = new Socket(host, port);
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
+        draw.run();
         clientMessageReadEvent.fireAsync(new ClientMessageReadEvent());
-        clientMessageInputEvent.fire(new ClientMessageInputEvent());
+        // clientChatDrawEvent.fire(new ClientChatInputEvent());
+        // clientMessageInputEvent.fire(new ClientMessageInputEvent());
     }
 
     @Override

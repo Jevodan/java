@@ -8,7 +8,10 @@ import ru.jevo.chat.model.PacketLogin;
 import ru.jevo.chat.server.api.ConnectionService;
 import ru.jevo.chat.server.api.UserService;
 import ru.jevo.chat.server.event.ServerLoginEvent;
+import ru.jevo.chat.server.event.ServerPanelUsersEvent;
+
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
 import javax.enterprise.event.ObservesAsync;
 import javax.inject.Inject;
 import java.io.IOException;
@@ -23,6 +26,9 @@ public class ServerLoginHandler {
     @Inject
     private ConnectionService connectionService;
 
+    @Inject
+    private Event<ServerPanelUsersEvent> serverPanelUsersEvent;
+
     @SneakyThrows
     public void handler(@ObservesAsync final ServerLoginEvent event) {
         System.out.println("ServeLOGINHandler");
@@ -35,7 +41,8 @@ public class ServerLoginHandler {
             connectionService.setLogin(socket, packetLogin.getLogin());
             System.out.println("Подконнекчены");
         } else System.out.println("Неправильное имя / пароль" + packetLogin.getLogin());
-        connectionService.sendResult(socket, check);
+        connectionService.sendResult(socket, check, messageJSON);
+     //   serverPanelUsersEvent.fireAsync(new ServerPanelUsersEvent());
 
     }
 

@@ -27,8 +27,8 @@ public class UserServiceBean implements UserService {
 
     @Override
     public @Nullable User findByLogin(@Nullable String login) {
-       if (!checkLogin(login)) return null;
-       return users.get(login);
+        if (!checkLogin(login)) return null;
+        return users.get(login);
     }
 
     @Override
@@ -59,6 +59,7 @@ public class UserServiceBean implements UserService {
     public boolean exists(@Nullable String login) {
         return users.containsKey(login);
     }
+
 
     private boolean checkLogin(@Nullable String login) {
         return (login == null || login.isEmpty()) ? false : true;

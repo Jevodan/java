@@ -49,6 +49,8 @@ public class ClientMessageInputHandler {
     private Event<ClientRegistryEvent> clientRegistryEvent;
 
     public void handler(@Observes final ClientMessageInputEvent event) {
+        System.out.println("!!!!!!!!!!");
+        /*
         System.out.println("(" + REG + ", " + LOGIN + ", " + PING + ", " + BROAD + ", " + EXIT + ") Введите сообщение :");
         @NotNull final Scanner in = new Scanner(System.in);
         @NotNull final String message = in.nextLine();
@@ -65,7 +67,7 @@ public class ClientMessageInputHandler {
                 clientMessageInputEvent.fire(new ClientMessageInputEvent());
                 break;
             case BROAD:
-                clientBroadcastEvent.fire(new ClientBroadcastEvent());
+                clientBroadcastEvent.fire(new ClientBroadcastEvent(message));
                 break;
             case EXIT:
                 client.exit();
@@ -75,6 +77,6 @@ public class ClientMessageInputHandler {
         }
         System.out.println();
         clientMessageInputEvent.fire(new ClientMessageInputEvent());
-
+*/
     }
 }

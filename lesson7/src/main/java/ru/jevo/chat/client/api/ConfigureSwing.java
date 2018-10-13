@@ -1,6 +1,7 @@
 package ru.jevo.chat.client.api;
 
 import ru.jevo.chat.api.ChatSide;
+import ru.jevo.chat.model.PacketType;
 
 import javax.swing.*;
 
@@ -12,6 +13,6 @@ public interface ConfigureSwing  {
 
     void panelConfig(JPanel panel, int width, int height);
 
-    void buttonConfig(JButton button, String icon, String name);
+    void buttonConfig(JButton button, String icon, String name, PacketType type);
 
 }

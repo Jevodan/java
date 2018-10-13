@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import ru.jevo.chat.client.api.Client;
+import ru.jevo.chat.client.event.ClientChatInputEvent;
 import ru.jevo.chat.client.event.ClientMessageInputEvent;
 import ru.jevo.chat.client.event.ClientMessageReadEvent;
 import ru.jevo.chat.client.event.ClientPingEvent;
@@ -24,11 +25,15 @@ public class ClientPingHandler {
     @Inject
     private Event<ClientMessageInputEvent> clientMessageInputEvent;
 
+    @Inject
+    private Event<ClientChatInputEvent> clientChatInputEvent;
+
     @SneakyThrows
     public void handler(@ObservesAsync ClientPingEvent event) {
         @NotNull final ObjectMapper objectMapper = new ObjectMapper();
         @NotNull final PacketPing packetPing = new PacketPing();
         client.send(objectMapper.writeValueAsString(packetPing));
-      //  clientMessageInputEvent.fire(new ClientMessageInputEvent());
+       // clientChatInputEvent.fire(new ClientChatInputEvent());
+
     }
 }

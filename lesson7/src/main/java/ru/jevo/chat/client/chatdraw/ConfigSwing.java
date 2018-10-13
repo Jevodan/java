@@ -2,6 +2,7 @@ package ru.jevo.chat.client.chatdraw;
 
 import lombok.NoArgsConstructor;
 import ru.jevo.chat.client.api.ConfigureSwing;
+import ru.jevo.chat.model.PacketType;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.swing.*;
@@ -10,6 +11,20 @@ import java.awt.*;
 @NoArgsConstructor
 @ApplicationScoped
 public class ConfigSwing implements ConfigureSwing {
+
+    public static final String MESSAGE = "message";
+    public static final String REG = "reg";
+    public static final String PING = "ping";
+    public static final String LOGIN = "login";
+    public static final String PRIVAT = "privat";
+    public static final String EXIT = "exit";
+    public static final String SEND = "Отправить";
+    public static final String REGISTRATION = "Регистрация";
+    public static final String PINGG = "Пинг";
+    public static final String ENTER = "Войти";
+    public static final String PRIVATE = "Приват";
+    public static final String OUT = "Выйти";
+    public static final String CHAT = "Чат!";
 
     public static final int BUTTON_WIDTH = 185;
     public static final int BUTTON_HEIGHT = 50;
@@ -37,7 +52,7 @@ public class ConfigSwing implements ConfigureSwing {
     }
 
     @Override
-    public void buttonConfig(JButton button, String icon, String name) {
+    public void buttonConfig(JButton button, String icon, String name, PacketType type) {
         button.setIcon(new ImageIcon(this.getClass().getResource("/images/" + icon + ".png")));
         button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         if (name.equals("Отправить"))

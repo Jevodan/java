@@ -1,16 +1,21 @@
 package ru.jevo.chat.server.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.jevo.chat.model.PacketError;
+import ru.jevo.chat.model.PacketRegistry;
+import ru.jevo.chat.model.PacketType;
 import ru.jevo.chat.server.api.ConnectionService;
 import ru.jevo.chat.server.service.Connection;
+
 import javax.enterprise.context.ApplicationScoped;
 import java.io.DataOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @ApplicationScoped
@@ -63,10 +68,14 @@ public class ConnectionServiceBean implements ConnectionService {
 
     @Override
     @SneakyThrows
-    public void sendResult(@Nullable Socket socket, @Nullable Boolean success) {
+    public void sendResult(@Nullable Socket socket, @Nullable Boolean success, String message) {
         final DataOutputStream stream = new DataOutputStream(socket.getOutputStream());
-        if (success) stream.writeUTF("ОКИ ДОКИ");
-        else stream.writeUTF("ФЕЙЛ");
+        if (success) stream.writeUTF(message);
+        else {
+            @NotNull final ObjectMapper objectMapper = new ObjectMapper();
+            @NotNull final PacketError packetError = new PacketError();
+            stream.writeUTF(objectMapper.writeValueAsString(packetError));
+        }
     }
 
     @SneakyThrows
@@ -74,6 +83,13 @@ public class ConnectionServiceBean implements ConnectionService {
     public void sendMessage(@Nullable Connection connection, @Nullable String login, @Nullable String message) {
         final DataOutputStream stream = new DataOutputStream(connection.getSocket().getOutputStream());
         stream.writeUTF(message);
+    }
+
+    @SneakyThrows
+    @Override
+    public void sendUsers(@Nullable Connection connection) {
+        final DataOutputStream stream = new DataOutputStream(connection.getSocket().getOutputStream());
+        stream.writeUTF(connection.getLogin() + "_PANEL");
     }
 
     @Override
